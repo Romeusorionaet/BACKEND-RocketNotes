@@ -64,7 +64,7 @@ class NotesController {
         let notes;
 
         if(tags){
-            const filterTags = tags.split(',').map(tag => tag.trim());
+            const filterTags = tags.split(',').map(tag => tag);
             
             notes = await knex("tags")
             .select([
@@ -88,7 +88,7 @@ class NotesController {
         const userTags = await knex("tags").where({user_id});
         const notesWithTags = notes.map(note => {
             const noteTags = userTags.filter(tag => tag.note_id === note.id);
-
+            console.log(noteTags)
             return {
                 ...note,
                 tags, noteTags
